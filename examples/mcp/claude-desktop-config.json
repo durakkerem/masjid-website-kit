@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "masjid-website": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://example.org/api/mcp", "--header", "Authorization:${AUTH_HEADER}"],
+      "env": {
+        "AUTH_HEADER": "Bearer PASTE-YOUR-MCP-KEY-HERE"
+      }
+    }
+  }
+}

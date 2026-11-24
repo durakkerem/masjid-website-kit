@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "masjid-website": {
+      "type": "http",
+      "url": "https://example.org/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${MASJID_MCP_KEY}"
+      }
+    }
+  }
+}

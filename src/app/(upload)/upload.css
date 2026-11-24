@@ -1,0 +1,52 @@
+.upload-body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(135deg, var(--green-900), var(--green-700));
+}
+.upload-card {
+  width: 100%;
+  max-width: 28rem;
+  background: var(--card);
+  border-radius: var(--radius);
+  border-top: 4px solid var(--gold-500);
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.upload-card h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+.upload-card .upload-for { color: var(--muted); margin: 0 0 1.25rem; }
+.upload-card label { display: block; font-weight: 600; margin: 1rem 0 0.35rem; }
+.upload-card input[type='file'],
+.upload-card input[type='text'] {
+  width: 100%;
+  font: inherit;
+  padding: 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+.upload-card .hint { font-size: 0.85rem; color: var(--muted); margin: 0.3rem 0 0; }
+.upload-card button {
+  margin-top: 1.5rem;
+  width: 100%;
+  font: inherit;
+  font-weight: 700;
+  padding: 0.8rem;
+  border: 0;
+  border-radius: 8px;
+  background: var(--gold-500);
+  color: var(--green-900);
+  cursor: pointer;
+}
+.upload-card .error {
+  background: #fdecea;
+  color: #8a1c13;
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  margin: 0 0 1rem;
+}
+.upload-card .done { color: var(--green-700); font-weight: 600; }
+.upload-card img { border-radius: 8px; margin-top: 1rem; max-height: 50vh; object-fit: contain; }

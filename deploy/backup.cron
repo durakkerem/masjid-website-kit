@@ -1,0 +1,4 @@
+# Nightly on-server copy of the database, kept for 30 days. Copy to /etc/cron.d/masjid-backup.
+# This protects against mistakes, not against losing the server: also take
+# off-server backups (see docs/BACKUPS.md).
+0 3 * * * masjid mkdir -p /home/masjid/backups && sqlite3 /home/masjid/masjid-website-kit/masjid.db ".backup /home/masjid/backups/masjid-$(date +\%F).db" && find /home/masjid/backups -name 'masjid-*.db' -mtime +30 -delete

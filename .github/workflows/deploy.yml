@@ -1,0 +1,40 @@
+name: Deploy
+
+# Deploys to your server over SSH on every push to main. Off until you set it up:
+#   Settings → Secrets and variables → Actions
+#     Secrets:   DEPLOY_HOST (server address), DEPLOY_USER (e.g. masjid),
+#                DEPLOY_SSH_KEY (private key whose public half is in that user's ~/.ssh/authorized_keys)
+#     Variables: DEPLOY_ENABLED = true
+#                DEPLOY_DIR = /home/masjid/masjid-website-kit   (the checkout on the server)
+# See docs/DEPLOY.md.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: vars.DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Run deploy script on the server
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DIR: ${{ vars.DEPLOY_DIR }}
+        run: ssh -i ~/.ssh/deploy_key "$DEPLOY_USER@$HOST" "cd '$DIR' && bash scripts/deploy.sh"

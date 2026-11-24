@@ -1,0 +1,21 @@
+# systemd service for masjid-website-kit. Copy to /etc/systemd/system/masjid-website.service, then:
+#   systemctl daemon-reload && systemctl enable --now masjid-website
+
+[Unit]
+Description=Masjid website (Next.js + Payload)
+After=network.target
+
+[Service]
+User=masjid
+WorkingDirectory=/home/masjid/masjid-website-kit
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=HOSTNAME=127.0.0.1
+# Same timezone as NEXT_PUBLIC_SITE_TIMEZONE in .env, so repeating events land on the right day.
+Environment=TZ=Europe/London
+ExecStart=/usr/bin/pnpm start
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
